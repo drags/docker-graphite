@@ -21,8 +21,11 @@ RUN pip install graphite-web
 # "Fix" for "cannot import name daemonize"
 RUN pip install 'Twisted<12.0'
 
-# Add user, configure carbon-cache, graphite-web, nginx, uwsgi
-RUN useradd -m -s /bin/bash graphite
+# Add user
+RUN groupadd -g 2001 graphite
+RUN useradd -m -s /bin/bash -u 2001 -g graphite graphite
+
+# Configure carbon-cache, graphite-web, nginx, uwsgi
 RUN cp /opt/graphite/_docker_conf/supervisor/graphite.conf /etc/supervisor/conf.d/graphite.conf
 RUN cp /opt/graphite/_docker_conf/graphite/* /opt/graphite/conf/
 RUN cp /opt/graphite/_docker_conf/graphite-web/* /opt/graphite/webapp/graphite/
@@ -37,7 +40,7 @@ RUN chown -R graphite:graphite /opt/graphite/storage
 
 # Setup server
 WORKDIR /opt/graphite/
-USER graphite
+USER root
 EXPOSE 80 2003
 
-CMD /usr/bin/supervisord
+CMD /usr/bin/supervisord -c /etc/supervisor/supervisord.conf

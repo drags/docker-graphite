@@ -11,7 +11,7 @@ Create a new branch to customize your install before building. Be sure to at lea
 
 ## Ports and Volumes
 
-This container *requires* a few connected ports and a data volume for *at least* the whisper data.
+This container **requires** a few connected ports and a data volume for **at least** the whisper data.
 
 ### Ports exposed by the container:
 

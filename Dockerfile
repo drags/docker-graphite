@@ -26,6 +26,7 @@ RUN groupadd -g 2001 graphite
 RUN useradd -m -s /bin/bash -u 2001 -g graphite graphite
 
 # Configure carbon-cache, graphite-web, nginx, uwsgi
+ADD conf/ /opt/graphite/_docker_conf/
 RUN cp /opt/graphite/_docker_conf/supervisor/graphite.conf /etc/supervisor/conf.d/graphite.conf
 RUN cp /opt/graphite/_docker_conf/graphite/* /opt/graphite/conf/
 RUN cp /opt/graphite/_docker_conf/graphite-web/* /opt/graphite/webapp/graphite/
@@ -41,6 +42,6 @@ RUN chown -R graphite:graphite /opt/graphite/storage
 # Setup server
 WORKDIR /opt/graphite/
 USER root
-EXPOSE 80 2003
+EXPOSE 80 2003 2004
 
 CMD /usr/bin/supervisord -c /etc/supervisor/supervisord.conf

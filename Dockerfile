@@ -1,10 +1,5 @@
-#FROM dl.tcpdrop.com:5000/archlinux
-#RUN pacman --noconfim -y
-#RUN pacman --noconfim -S nginx python-pip
 FROM ubuntu:trusty
 MAINTAINER Tim Sogard <docker@timsogard.com>
-
-ADD conf/ /opt/graphite/_docker_conf/
 
 # Install nginx, supervisor
 RUN apt-get update
